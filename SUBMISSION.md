@@ -12,9 +12,10 @@
 
 | Type | Evidence | Status |
 | --- | --- | --- |
-| GitHub Repository | Published repository URL | Pending publication |
-| GitHub File | `contracts/mandate_gate.py` URL at the published commit | Pending publication |
-| GenLayer Studio Contract | Deployed contract URL and transaction | Pending live Studio deployment |
+| GitHub Repository | https://github.com/smokexbadlines-dot/mandategate-genlayer | Published |
+| GitHub File | https://github.com/smokexbadlines-dot/mandategate-genlayer/blob/main/contracts/mandate_gate.py | Published |
+| GenLayer Studio Contract | https://explorer-studio.genlayer.com/address/0xB298A1818E18e9Af55f9312C1D1e862f31d9e699 | Deployment finalized; constructor succeeded |
+| Studio deployment transaction | https://explorer-studio.genlayer.com/tx/0x5754abc49e13db4c40c0c1d3283021346933eceef0bbb92cc555590787e955ac | Finalized |
 
 ## Verified locally
 
@@ -22,4 +23,4 @@
 - `python -m pytest -q`: 15 passed, two RPC tests skipped by default.
 - `gltest tests/integration/ -q` against GLSim with five validators and mocked external evidence: two passed. The lifecycle includes gate creation, consensus review, ticket spending through the SDK, and a SHA-pinned fake GitHub merge.
 
-GLSim executes Python natively. The Studio deployment and real GenVM validator run must be added as evidence after they succeed. The Portal submission should use the published repository and verified Studio URL, not this local file path.
+GLSim executes Python natively. The Studio deployment passed full consensus and finalized. A live review against an actual GitHub PR is still pending. The Portal submission should use the repository and Studio URLs above.

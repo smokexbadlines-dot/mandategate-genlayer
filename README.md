@@ -60,7 +60,7 @@ MANDATEGATE_RUN_INTEGRATION=1 MANDATEGATE_RUN_SIM=1 gltest tests/integration/ -v
 
 On PowerShell, set the variables with `$env:MANDATEGATE_RUN_INTEGRATION='1'` and `$env:MANDATEGATE_RUN_SIM='1'` before running `gltest`. `scripts.run_glsim` also handles a Windows temp-file issue in the current direct runner.
 
-GLSim runs the Python runner natively. A full GenVM/Studio consensus check remains necessary before a production deployment. Load `contracts/mandate_gate.py` into GenLayer Studio or use the CLI's direct contract deployment command after selecting and verifying your network:
+GLSim runs the Python runner natively. The contract was also [deployed in Studio with full consensus](https://explorer-studio.genlayer.com/address/0xB298A1818E18e9Af55f9312C1D1e862f31d9e699); its constructor transaction finalized successfully. Load `contracts/mandate_gate.py` into GenLayer Studio or use the CLI's direct contract deployment command after selecting and verifying your network:
 
 ```bash
 genlayer deploy --contract contracts/mandate_gate.py
@@ -90,7 +90,7 @@ The consumer reads finalized gate state, verifies its wallet address and the exp
 - A patch can show *what changed* but cannot prove a program's runtime behavior. `AUTHORIZED` means the diff is judged within the mandate, not that the code is correct or safe.
 - GitHub remains the evidence provider and merge authority. The consumer must enforce the reviewed head and base and respect repository branch protection and CI checks.
 - The PR is fetched before and after the commit. This detects ordinary changes during review but is not an atomic snapshot of GitHub. A consumer's final head and base check closes that gap at merge time.
-- The simulator integration test uses mocked external evidence. A live Studio/testnet review with funded validators has not yet been run.
+- The simulator integration test uses mocked external evidence. A live Studio review against a GitHub PR has not yet been run.
 
 ## References
 
