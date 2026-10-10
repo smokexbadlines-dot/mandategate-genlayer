@@ -12,6 +12,29 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
-      - run: python -m pip install ".[dev]"
+      - run: python -m pip install ".[dev,sim]"
       - run: genvm-lint check contracts/mandate_gate.py
       - run: python -m pytest -q
+      - name: Start GLSim
+        run: |
+          python -m scripts.run_glsim --port 4000 --validators 5 --no-browser > /tmp/glsim.log 2>&1 &
+          python - <<'PY'
+          import time
+          import requests
+          for attempt in range(30):
+              try:
+                  response = requests.post('http://127.0.0.1:4000/api', json={
+                      'jsonrpc': '2.0', 'id': 1, 'method': 'eth_chainId', 'params': []
+                  }, timeout=2)
+                  if response.ok and 'result' in response.json():
+                      break
+              except requests.RequestException:
+                  pass
+              time.sleep(1)
+          else:
+              raise SystemExit('GLSim did not start')
+          PY
+      - run: gltest tests/integration/ -q
+        env:
+          MANDATEGATE_RUN_INTEGRATION: "1"
+          MANDATEGATE_RUN_SIM: "1"
