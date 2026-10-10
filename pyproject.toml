@@ -1,0 +1,24 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools]
+packages = []
+
+[project]
+name = "mandategate"
+version = "0.1.0"
+description = "A GenLayer intelligent contract for mandate-bound PR merge tickets"
+requires-python = ">=3.12"
+dependencies = [
+  "genlayer-py @ git+https://github.com/genlayerlabs/genlayer-py@a3dc35e04898e3889cbfa855bcaf7d2664675b8f",
+]
+
+[project.optional-dependencies]
+dev = [
+  "genlayer-test @ git+https://github.com/genlayerlabs/genlayer-testing-suite@9c09578b143905471fb0657dd53bdaf18da8e35f",
+  "genvm-linter @ git+https://github.com/genlayerlabs/genvm-linter@28450e665666300fc648dbe495110dfd0cb6a7b4",
+]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
